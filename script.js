@@ -41,6 +41,7 @@ const quizData = [
     },
 ];
 
+const quiz = document.getElementById("quiz");
 const questionEl = document.getElementById("question");
 const a_text = document.getElementById('a_text');
 const b_text = document.getElementById('b_text');
@@ -57,6 +58,7 @@ let score = 0;
 loadQuiz();
 
 function loadQuiz() {
+    deselectAnswers();
     const currentQuizData = quizData[currentQuiz];
     questionEl.innerText = currentQuizData.question;
     a_text.innerText = currentQuizData.a;
@@ -79,9 +81,7 @@ function getSelected() {
 
 function deselectAnswers() {
     answersEls.forEach((answer) => {
-        if (answerEl.checked) {
-            answer = answerEl.id;
-        }
+        answer.checked = false;
     });
 }
 
@@ -98,8 +98,8 @@ submitBtn.addEventListener('click', () => {
         if(currentQuiz < quizData.length) {
             loadQuiz();
         } else {
-            //todo show score
-            alert('You finished" Get Yourself a drink!');
+            quiz.innerHTML = `<h2>You answered correctly at ${score}/${quizData.length} questions.</h2>
+            <button onClick="location.reload()">Reload</button>`;
         }
     }
 });
